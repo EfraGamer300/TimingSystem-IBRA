@@ -8,6 +8,7 @@ import me.makkuusen.timing.system.theme.Text;
 import me.makkuusen.timing.system.theme.messages.Message;
 import me.makkuusen.timing.system.theme.messages.Success;
 import me.makkuusen.timing.system.theme.messages.Error;
+import me.makkuusen.timing.system.database.TrackDatabase;
 import me.makkuusen.timing.system.track.Track;
 import me.makkuusen.timing.system.track.editor.TrackEditor;
 import me.makkuusen.timing.system.track.locations.TrackLocation;
@@ -216,6 +217,30 @@ public class CommandTrackEdit extends BaseCommand {
     public static void onItem(Player player, @Optional Track track) {
         var response = TrackEditor.setItem(player, track);
         Text.send(player, response);
+    }
+
+    @Subcommand("broadcast newtrack")
+    @CommandCompletion("<name> <link>")
+    @CommandPermission("%permissiontrackedit_broadcast")
+    public static void onBroadcastNewTrack(Player player, String name, String link) {
+        var maybeTrack = TrackDatabase.getTrack(name);
+        if (maybeTrack.isEmpty()) {
+            Text.send(player, Error.TRACKS_NOT_FOUND);
+            return;
+        }
+        Track track = maybeTrack.get();
+        String creatorName = track.getOwner() != null ? track.getOwner().getName() : "Unknown";
+
+        String webhookUrl = TimingSystem.configuration.getDiscordWebhookUrl();
+        String roleId = TimingSystem.configuration.getDiscordWebhookRoleId();
+
+        if (webhookUrl == null || webhookUrl.isEmpty()) {
+            Text.send(player, Error.GENERIC);
+            return;
+        }
+
+        DiscordUtils.sendTrackAddedWebhook(webhookUrl, track.getDisplayName(), creatorName, link, roleId);
+        Text.send(player, Success.SAVED);
     }
 
     @Subcommand("owner")

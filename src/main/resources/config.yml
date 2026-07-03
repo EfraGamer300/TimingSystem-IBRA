@@ -1,5 +1,10 @@
 frosthexaddon:
    enabled: false
+discord:
+   webhook:
+      url: ''
+      roleId: ''
+
 medalsaddon:
    enabled: false
    showNextMedal: true

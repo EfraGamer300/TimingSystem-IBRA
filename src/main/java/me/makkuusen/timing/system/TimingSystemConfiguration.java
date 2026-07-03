@@ -41,6 +41,9 @@ public class TimingSystemConfiguration {
     private boolean dynamicDiamondPosEnabled;
     private final List<DynamicPos> dynamicDiamondPoses = new ArrayList<>();
 
+    private final String discordWebhookUrl;
+    private final String discordWebhookRoleId;
+
     private final Object databaseType;
 
     TimingSystemConfiguration(TimingSystem plugin) {
@@ -66,6 +69,9 @@ public class TimingSystemConfiguration {
 
         scoreboardMaxRows = plugin.getConfig().getInt("scoreboard.maxRows", 15);
         scoreboardInterval = ApiUtilities.parseDurationToMillis(plugin.getConfig().getString("scoreboard.interval","1000"));
+        discordWebhookUrl = plugin.getConfig().getString("discord.webhook.url", "");
+        discordWebhookRoleId = plugin.getConfig().getString("discord.webhook.roleId", "");
+
         frostHexAddOnEnabled = plugin.getConfig().getBoolean("frosthexaddon.enabled");
         medalsAddOnEnabled = plugin.getConfig().getBoolean("medalsaddon.enabled");
         medalsShowNextMedal = plugin.getConfig().getBoolean("medalsaddon.showNextMedal");
