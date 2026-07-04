@@ -23,6 +23,9 @@ public class TimingSystemConfiguration {
     private final String sqlPassword;
     private int scoreboardMaxRows;
     private Integer scoreboardInterval;
+    private final String discordWebhookUrl;
+    private final String discordWebhookRoleId;
+    private final boolean discordRecordsEnabled;
     private final boolean customBoatsAddOnEnabled;
     private final String guiPrefix3;
     private final String guiPrefix4;
@@ -54,6 +57,9 @@ public class TimingSystemConfiguration {
 
         scoreboardMaxRows = plugin.getConfig().getInt("scoreboard.maxRows", 15);
         scoreboardInterval = ApiUtilities.parseDurationToMillis(plugin.getConfig().getString("scoreboard.interval","1000"));
+        discordWebhookUrl = plugin.getConfig().getString("discord.webhook.url", "");
+        discordWebhookRoleId = plugin.getConfig().getString("discord.webhook.roleId", "");
+        discordRecordsEnabled = plugin.getConfig().getBoolean("discord.records.enabled");
         customBoatsAddOnEnabled = plugin.getConfig().getBoolean("customboatsaddon.enabled");
         guiPrefix3 = plugin.getConfig().getString("customboatsaddon.guiprefix3");
         guiPrefix4 = plugin.getConfig().getString("customboatsaddon.guiprefix4");

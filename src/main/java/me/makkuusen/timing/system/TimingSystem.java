@@ -20,6 +20,7 @@ import me.makkuusen.timing.system.permissions.*;
 import me.makkuusen.timing.system.theme.TSColor;
 import me.makkuusen.timing.system.theme.Text;
 import me.makkuusen.timing.system.theme.Theme;
+import me.makkuusen.timing.system.timetrial.RecordWebhookListener;
 import me.makkuusen.timing.system.timetrial.TimeTrialListener;
 import me.makkuusen.timing.system.tplayer.TPlayer;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -84,6 +85,7 @@ public class TimingSystem extends JavaPlugin {
         pm.registerEvents(new GUIListener(), plugin);
         pm.registerEvents(new TSListener(), plugin);
         pm.registerEvents(new TimeTrialListener(), plugin);
+        pm.registerEvents(new RecordWebhookListener(), plugin);
         pm.registerEvents(new LonelinessController(plugin), plugin);
         pm.registerEvents(new ReadyCheckListener(), plugin);
 
