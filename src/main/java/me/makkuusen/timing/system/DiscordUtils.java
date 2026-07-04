@@ -57,6 +57,45 @@ public class DiscordUtils {
         return embeds;
     }
 
+    public static void sendRecordWebhook(String webhookUrl, String playerName, String trackName, String newTime, String previousHolder, String previousTime, String roleId) {
+        JsonObject allowedMentions = new JsonObject();
+        JsonArray roles = new JsonArray();
+        if (roleId != null && !roleId.isEmpty()) {
+            roles.add(roleId);
+        }
+        allowedMentions.add("roles", roles);
+
+        JsonObject payload = new JsonObject();
+        if (roleId != null && !roleId.isEmpty()) {
+            payload.addProperty("content", "<@&" + roleId + ">");
+        } else {
+            payload.addProperty("content", "");
+        }
+        payload.addProperty("username", "IBRA Bot");
+        payload.add("allowed_mentions", allowedMentions);
+
+        JsonArray embeds = new JsonArray();
+        JsonObject embed = new JsonObject();
+        embed.addProperty("title", "🏁 New Track Record!");
+        embed.addProperty("color", 3447003);
+
+        StringBuilder description = new StringBuilder();
+        description.append("🎮 **").append(playerName).append("** improved the record on track **").append(trackName).append("**!\n");
+        description.append("⏱️ **New Time:** ").append(newTime).append(" 🏆\n");
+        if (previousHolder != null) {
+            description.append("👤 **Previous Holder:** ").append(previousHolder);
+            if (previousTime != null && !previousTime.isEmpty()) {
+                description.append(" (").append(previousTime).append(")");
+            }
+        }
+        embed.addProperty("description", description.toString());
+
+        embeds.add(embed);
+        payload.add("embeds", embeds);
+
+        sendWebhook(webhookUrl, payload.toString());
+    }
+
     private static void sendWebhook(String webhookUrl, String json) {
         try {
             URI uri = URI.create(webhookUrl);

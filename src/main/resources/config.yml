@@ -4,6 +4,8 @@ discord:
    webhook:
       url: ''
       roleId: ''
+   records:
+      enabled: false
 
 medalsaddon:
    enabled: false

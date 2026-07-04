@@ -43,6 +43,7 @@ public class TimingSystemConfiguration {
 
     private final String discordWebhookUrl;
     private final String discordWebhookRoleId;
+    private final boolean discordRecordsEnabled;
 
     private final Object databaseType;
 
@@ -71,6 +72,7 @@ public class TimingSystemConfiguration {
         scoreboardInterval = ApiUtilities.parseDurationToMillis(plugin.getConfig().getString("scoreboard.interval","1000"));
         discordWebhookUrl = plugin.getConfig().getString("discord.webhook.url", "");
         discordWebhookRoleId = plugin.getConfig().getString("discord.webhook.roleId", "");
+        discordRecordsEnabled = plugin.getConfig().getBoolean("discord.records.enabled");
 
         frostHexAddOnEnabled = plugin.getConfig().getBoolean("frosthexaddon.enabled");
         medalsAddOnEnabled = plugin.getConfig().getBoolean("medalsaddon.enabled");
